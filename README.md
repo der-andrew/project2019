@@ -25,6 +25,8 @@ user 8-) ---> | MainAPP | ---> ( DB )
               | source |
               ~~~~~~~~~~
 ```
+В качестве DB используется MongoDB.
+
 
 ## API Reference
 - GET /status Статус инстанса
