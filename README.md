@@ -58,19 +58,19 @@ _- значения по умолчанию
 
 | Параметр             | Тип     | Описание                                                     | ENV                            |
 |----------------------|---------|--------------------------------------------------------------|--------------------------------|
-| *http.host           | string  | Адрес   бинд-хоста HTTP интерфейса (___0.0.0.0___)                 |  THESAURUS_HTTP_HOST           |
-| http.port            | integer | Порт   бинд-хоста HTTP интерфейса (___80___)                       |  THESAURUS_HTTP_PORT           |
+| *http.host           | string  | Адрес   бинд-хоста HTTP интерфейса (_0.0.0.0)                |  THESAURUS_HTTP_HOST           |
+| http.port            | integer | Порт   бинд-хоста HTTP интерфейса (_80)                      |  THESAURUS_HTTP_PORT           |
 | *db.host             | integer | Адрес   хоста БД                                             |  THESAURUS_DB_HOST             |
-| db.port              | string  | Порт   хоста БД (___27017___)                                      |  THESAURUS_DB_PORT             |
+| db.port              | string  | Порт   хоста БД (_27017)                                     |  THESAURUS_DB_PORT             |
 | *db.database         | string  | Название   БД                                                |  THESAURUS_DB_DATABASE         |
 | db.login             | string  | Логин   пользователя БД                                      |  THESAURUS_DB_LOGIN            |
 | db.password          | string  | Пароль   пользователя БД                                     |  THESAURUS_DB_PASSWORD         |
 | csv.path             | string  | Путь до   папки со словарями                                 |  THESAURUS_CSV_PATH            |
 | csv.separator.column | string  | Разделитель   полей CSV (,)                                  | THESAURUS_CSV_SEPARATOR_COLUMN |
 | sentryDSN            | string  | DSN   аггрегатора ошибок                                     |  THESAURUS_SENTRY_DSN          |
-| logging.output       | string  | Вывод   ошибок в ___STDOUT___ или файл (указывается путь до файла) |  THESAURUS_LOGGING_OUTPUT      |
-| logging.level        | string  | Уровень   логирования (DEBUG|ERROR|FATAL|___INFO___)               |  THESAURUS_LOGGING_LEVEL       |
-| logging.format       | string  | Формат   логов (___TEXT___|JSON)                                   |  THESAURUS_LOGGING_FORMAT      |
+| logging.output       | string  | Вывод   ошибок в _STDOUT или файл (указывается путь до файла)|  THESAURUS_LOGGING_OUTPUT      |
+| logging.level        | string  | Уровень   логирования (DEBUG|ERROR|FATAL|_INFO)              |  THESAURUS_LOGGING_LEVEL       |
+| logging.format       | string  | Формат   логов (_TEXT|JSON)                                  |  THESAURUS_LOGGING_FORMAT      |
 ```
 
 ## Справочники

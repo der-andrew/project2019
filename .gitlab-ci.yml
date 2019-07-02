@@ -170,17 +170,17 @@ test:docker:
  variables:
   GIT_STRATEGY: none
 
-test:doc-syntax:
- <<: *common
- image:
-   name: repository.diacare-soft.ru/docker/goswagger/swagger
-   entrypoint: [""]
- stage: test
- dependencies: []
- cache:
-   policy: pull
- script:
-  -  swagger validate docs/swagger.yaml
+#test:doc-syntax:
+# <<: *common
+# image:
+#   name: repository.diacare-soft.ru/docker/goswagger/swagger
+#   entrypoint: [""]
+# stage: test
+# dependencies: []
+# cache:
+#   policy: pull
+# script:
+#  -  swagger validate docs/swagger.yaml
 
 test:postman:
  stage: test
@@ -236,23 +236,23 @@ push:docker:version:
  variables:
   GIT_STRATEGY: none
 
-pages:
- <<: *common
- image: repository.diacare-soft.ru/docker/swagger-ui
- stage: deploy
- dependencies: []
- cache:
-  policy: pull
- script:
-  - mv docs/swagger.yaml /var/www/${CI_COMMIT_SHA:0:8}.yaml
-  - sed -i 's|'https://petstore.swagger.io/v2/swagger.json'|'${CI_COMMIT_SHA:0:8}.yaml'|g' /var/www/index.html
-  - mv /var/www public
- artifacts:
-   name: ${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.b${CI_JOB_ID}-pages
-   paths:
-    - public
- only:
-  - develop
+#pages:
+# <<: *common
+# image: repository.diacare-soft.ru/docker/swagger-ui
+# stage: deploy
+# dependencies: []
+# cache:
+#  policy: pull
+# script:
+#  - mv docs/swagger.yaml /var/www/${CI_COMMIT_SHA:0:8}.yaml
+#  - sed -i 's|'https://petstore.swagger.io/v2/swagger.json'|'${CI_COMMIT_SHA:0:8}.yaml'|g' /var/www/index.html
+#  - mv /var/www public
+# artifacts:
+#   name: ${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.b${CI_JOB_ID}-pages
+#   paths:
+#    - public
+# only:
+#  - develop
 
 deploy:bin:linux:
  stage: deploy
