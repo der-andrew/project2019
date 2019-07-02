@@ -1,0 +1,13 @@
+[prune]
+  go-tests = true
+  unused-packages = true
+
+#[[override]]
+# name = "github.com/docker/docker"
+# version = "1.13.1"
+ #branch = "master"
+
+[[override]]
+ name = "github.com/Sirupsen/logrus"
+ source = "github.com/sirupsen/logrus"
+ branch = "master"

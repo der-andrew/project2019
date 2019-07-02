@@ -1,0 +1,49 @@
+version: '3.7'
+networks:
+ thesaurus:
+
+services:
+ app:
+  image: "${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}"
+  container_name: "thesaurus_app-${CI_JOB_ID}"
+  networks:
+   - thesaurus
+  environment:
+   - THESAURUS_HTTP_HOST=0.0.0.0
+   - THESAURUS_HTTP_PORT=80
+   - THESAURUS_DB_HOST=mongodb
+   - THESAURUS_DB_PORT=27017
+   - THESAURUS_DB_DATABASE=thesaurus
+   - THESAURUS_LOGGING_LEVEL=INFO
+   - THESAURUS_SENTRYDSN=https://7af80d660bc64a1da1f5f6a873781dc7@sentry.diacare-soft.ru/19
+  networks:
+   - thesaurus
+  ports:
+   - 80
+  depends_on:
+   - mongodb
+
+ mongodb:
+   image: mongo
+   container_name: "mongodb-${CI_JOB_ID}"
+   environment:
+     - MONGO_DATA_DIR=/data/db
+     - MONGO_LOG_DIR=/dev/null
+   networks:
+     - thesaurus
+   ports:
+     - 27017
+   command: mongod --smallfiles 
+
+ postman:
+  image: newman
+  container_name: "postman-${CI_JOB_ID}"
+  build:
+   context: .
+   labels:
+    - "image.version=${CI_JOB_ID}"
+  networks:
+   - thesaurus
+  depends_on:
+   - app
+  command: run /storage/collection.json --color on --global-var thesaurusHost=http://app

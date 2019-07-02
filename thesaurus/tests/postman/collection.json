@@ -1,0 +1,1112 @@
+{
+	"info": {
+		"_postman_id": "c9278917-493a-428e-a711-f30e6f774fc3",
+		"name": "THESAURUS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "01_Статус инстанса",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "08baa34a-1056-409f-91b5-cab35b033326",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});",
+							"",
+							"pm.test('Entity schema is valid', function() {",
+							"_.each(pm.response.json().data, (item) => {",
+							"        pm.expect(tv4.validate(item, glFn.getEnvSchema(\"statusSchema\"))).to.be.true;",
+							"    })",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/status",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"status"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "02_Создание справочника: ERROR 400 attribute type",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 400);",
+							"    pm.expect(pm.response).to.have.property('status', 'Bad Request');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Error schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData.errors, glFn.getEnvSchema(\"validationSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Validation error\");",
+							"});",
+							"",
+							"pm.test(\"Validation data is correct\", function () {",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"type\", \"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": 1,\n\t\"locale\": 1,\n\t\"code\": 1,\n\t\"text\": 1\n}"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "03_Создание справочника: ERROR 400 attribute require",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 400);",
+							"    pm.expect(pm.response).to.have.property('status', 'Bad Request');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Error schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData.errors, glFn.getEnvSchema(\"validationSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Validation error\");",
+							"});",
+							"",
+							"pm.test(\"Validation data is correct\", function () {",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"type\", \"required\");",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"locale\", \"required\");",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"code\", \"required\");",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"text\", \"required\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"foo\": \"bar\"\n}\n"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "04_Создание справочника: SUCCESS 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							"pm.environment.set(\"documentType\", \"sample.thesaurus\");",
+							"pm.environment.set(\"documentCode\", \"samplecode\");",
+							"pm.environment.set(\"documentLocale\", \"ENG\");",
+							"pm.environment.set(\"documentText\", \"sampletext\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});",
+							"",
+							"pm.test('Entity schema is valid', function() {",
+							"    pm.expect(tv4.validate(jsonData.data[0], glFn.getEnvSchema(\"documentSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Entity data is correct\", function() {",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"type\", pm.environment.get(\"documentType\"));",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"code\", pm.environment.get(\"documentCode\"));",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"locale\", pm.environment.get(\"documentLocale\"));",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"text\", pm.environment.get(\"documentText\"));",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"{{documentLocale}}\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": \"{{documentText}}\"\n}"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "05_Коллекция справочников: SUCCESS 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9456271c-52b9-4d81-8635-44bba0663d6e",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});",
+							"",
+							"pm.test('Entity schema is valid', function() {",
+							"_.each(pm.response.json().data, (item) => {",
+							"        pm.expect(tv4.validate(item, glFn.getEnvSchema(\"documentSchema\"))).to.be.true;",
+							"    })",
+							"});",
+							"",
+							"pm.test('Entity data is valid', function() {",
+							"_.each(pm.response.json().data, (item) => {",
+							"    pm.expect(item).to.have.property(\"type\", pm.environment.get(\"documentType\"));",
+							"    pm.expect(item).to.have.property(\"code\", pm.environment.get(\"documentCode\"));",
+							"    pm.expect(item).to.have.property(\"locale\", pm.environment.get(\"documentLocale\"));",
+							"    pm.expect(item).to.have.property(\"text\", pm.environment.get(\"documentText\"));",
+							"    })",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e4bea8c8-ea2b-47cd-b6ba-953c150ab7c3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents?type={{documentType}}&locale={{documentLocale}}",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{documentType}}"
+						},
+						{
+							"key": "locale",
+							"value": "{{documentLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "06_Создание справочника: ERROR 400 unique",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 400);",
+							"    pm.expect(pm.response).to.have.property('status', 'Bad Request');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Error schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData.errors, glFn.getEnvSchema(\"validationSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Validation error\");",
+							"});",
+							"",
+							"pm.test(\"Validation data is correct\", function () {",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"type\", \"unique\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"{{documentType}}\",\n    \"locale\": \"{{documentLocale}}\",\n    \"code\": \"{{documentCode}}\",\n    \"text\": \"{{documentText}}\"\n}"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "07_Редактирование справочника: ERROR 404 not found",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							"pm.environment.set(\"documentType\", \"sample.thesaurus\");",
+							"pm.environment.set(\"documentCode\", \"samplecode\");",
+							"pm.environment.set(\"documentLocale1\", \"ENG\");",
+							"pm.environment.set(\"documentText\", \"newsampletext\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 404);",
+							"    pm.expect(pm.response).to.have.property('status', 'Not Found');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Entity not found\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"type\": \"{{randomID}}\",\n    \"locale\": \"{{randomID}}\",\n    \"code\": \"{{documentCode}}\",\n    \"text\": \"{{documentText}}\"\n}"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "08_Релактирование справочника: ERROR 400 attribute type",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							"pm.environment.set(\"documentType\", \"sample.thesaurus\");",
+							"pm.environment.set(\"documentCode\", \"samplecode\");",
+							"pm.environment.set(\"documentLocale1\", \"ENG\");",
+							"pm.environment.set(\"documentLocale2\", \"RUS\");",
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 400);",
+							"    pm.expect(pm.response).to.have.property('status', 'Bad Request');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Error schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData.errors, glFn.getEnvSchema(\"validationSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Validation error\");",
+							"});",
+							"",
+							"pm.test(\"Validation data is correct\", function () {",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"text\", \"string\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"{{documentLocale}}\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": 1\n}"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "09_Редактирование справочника: ERROR 400 attribute require",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 400);",
+							"    pm.expect(pm.response).to.have.property('status', 'Bad Request');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Error schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData.errors, glFn.getEnvSchema(\"validationSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Validation error\");",
+							"});",
+							"",
+							"pm.test(\"Validation data is correct\", function () {",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"type\", \"required\");",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"locale\", \"required\");",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"code\", \"required\");",
+							"    pm.expect(jsonData.errors.validation).to.have.property(\"text\", \"required\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"foo\": \"bar\"\n}\n"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "10_Редактирование справочника: SUCCESS 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							"pm.environment.set(\"documentType\", \"sample.thesaurus\");",
+							"pm.environment.set(\"documentCode\", \"samplecode\");",
+							"pm.environment.set(\"documentLocale\", \"ENG\");",
+							"pm.environment.set(\"documentText\", \"newsampletext\");"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "c4f58a5a-a166-4bd8-9534-2ae154ba71c8",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});",
+							"",
+							"pm.test('Entity schema is valid', function() {",
+							"    pm.expect(tv4.validate(jsonData.data[0], glFn.getEnvSchema(\"documentSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"Entity data is correct\", function() {",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"type\", pm.environment.get(\"documentType\"));",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"code\", pm.environment.get(\"documentCode\"));",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"locale\", pm.environment.get(\"documentLocale\"));",
+							"    pm.expect(jsonData.data[0]).to.have.property(\"text\", pm.environment.get(\"documentText\"));",
+							"",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"{{documentLocale}}\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": \"{{documentText}}\"\n}"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "11_Коллекция справочников: SUCCESS 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9456271c-52b9-4d81-8635-44bba0663d6e",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});",
+							"",
+							"pm.test('Entity schema is valid', function() {",
+							"_.each(pm.response.json().data, (item) => {",
+							"        pm.expect(tv4.validate(item, glFn.getEnvSchema(\"documentSchema\"))).to.be.true;",
+							"    })",
+							"});",
+							"",
+							"pm.test('Entity data is valid', function() {",
+							"_.each(pm.response.json().data, (item) => {",
+							"    pm.expect(item).to.have.property(\"type\", pm.environment.get(\"documentType\"));",
+							"    pm.expect(item).to.have.property(\"code\", pm.environment.get(\"documentCode\"));",
+							"    pm.expect(item).to.have.property(\"locale\", pm.environment.get(\"documentLocale\"));",
+							"    pm.expect(item).to.have.property(\"text\", pm.environment.get(\"documentText\"));",
+							"    })",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e4bea8c8-ea2b-47cd-b6ba-953c150ab7c3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents?type={{documentType}}&locale={{documentLocale}}",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{documentType}}"
+						},
+						{
+							"key": "locale",
+							"value": "{{documentLocale}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "12_Удаление справочника: SUCCESS 200",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "61473142-fb1f-44b5-a14a-d8786b445f10",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"{{documentLocale}}\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": \"{{documentText}}\"\n},\n{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"ENG\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": \"{{documentText}}\"\n}\n]"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents?type={{documentType}}&locale={{documentLocale}}&code={{documentCode}}",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{documentType}}"
+						},
+						{
+							"key": "locale",
+							"value": "{{documentLocale}}"
+						},
+						{
+							"key": "code",
+							"value": "{{documentCode}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "13_Коллекция справочников: SUCCESS 200",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "9456271c-52b9-4d81-8635-44bba0663d6e",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 200);",
+							"    pm.expect(pm.response).to.have.property('status', 'OK');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"SUCCESS\");",
+							"});",
+							"",
+							"pm.test('Entity data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"data\", null);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "e4bea8c8-ea2b-47cd-b6ba-953c150ab7c3",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents?type={{documentType}}&locale={{documentLocale1}}",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{documentType}}"
+						},
+						{
+							"key": "locale",
+							"value": "{{documentLocale1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "14_Удаление справочника: ERROR 404 not found",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"id": "7738aa84-c96d-47ef-812f-44cc6a0dba9f",
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"id": "61473142-fb1f-44b5-a14a-d8786b445f10",
+						"exec": [
+							"var jsonData = JSON.parse(responseBody)",
+							"",
+							"pm.test(\"Success response is correct\", function () {",
+							"    pm.expect(pm.response).to.have.property('code', 404);",
+							"    pm.expect(pm.response).to.have.property('status', 'Not Found');",
+							"    pm.expect(pm.response).to.have.header('Content-type', 'application/json');",
+							"});",
+							"",
+							"pm.test('Base schema is valid', function() {",
+							"  pm.expect(tv4.validate(jsonData, glFn.getEnvSchema(\"baseSchema\"))).to.be.true;",
+							"});",
+							"",
+							"pm.test('Message data is valid', function() {",
+							"  pm.expect(jsonData).to.have.property(\"message\", \"Entity not found\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\n{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"{{documentLocale}}\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": \"{{documentText}}\"\n},\n{\n\t\"type\": \"{{documentType}}\",\n\t\"locale\": \"ENG\",\n\t\"code\": \"{{documentCode}}\",\n\t\"text\": \"{{documentText}}\"\n}\n]"
+				},
+				"url": {
+					"raw": "{{thesaurusHost}}/documents?type={{documentType}}&locale={{documentLocale}}&code={{documentCode}}",
+					"host": [
+						"{{thesaurusHost}}"
+					],
+					"path": [
+						"documents"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "{{documentType}}"
+						},
+						{
+							"key": "locale",
+							"value": "{{documentLocale}}"
+						},
+						{
+							"key": "code",
+							"value": "{{documentCode}}"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "537ed20b-3d8f-4d24-920d-318623e7da0c",
+				"type": "text/javascript",
+				"exec": [
+					"var uuid = require('uuid');",
+					"pm.environment.set('randomID', uuid.v4());",
+					"",
+					"glFn = {",
+					"    getEnvSchema: function(name) {",
+					"        return JSON.parse(pm.variables.get(name));",
+					"}",
+					"}",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "ea5f88ef-18db-4a28-8030-36fa20dd4981",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "908fc7b5-8158-4d22-8f86-0eb7a6f4e13a",
+			"key": "baseSchema",
+			"value": "{\"type\":\"object\",\"properties\":{\"version\":{\"type\":\"string\"},\"message\":{\"type\":\"string\"},\"errors\":{\"type\":[\"object\",\"null\"]},\"data\":{\"type\":[\"array\",\"null\"]}},\"required\":[\"version\",\"message\",\"errors\",\"data\"]}",
+			"type": "string"
+		},
+		{
+			"id": "704b4b9c-8350-41c5-b898-eb9117e8567f",
+			"key": "validationSchema",
+			"value": "{\"type\":\"object\",\"properties\":{\"validation\":{\"type\":\"object\"}}}",
+			"type": "string"
+		},
+		{
+			"id": "bbea6a9d-a801-4442-894c-b7d988e89418",
+			"key": "statusSchema",
+			"value": "{\"type\":\"object\",\"properties\":{\"name\":{\"type\":\"string\"},\"updated\":{\"type\":\"string\"},\"type\":{\"type\":\"string\",\"enum\":[\"STATIC\",\"DYNAMIC\"]},\"locale\":{\"type\":\"array\",\"items\":{\"type\":\"string\"}}},\"required\":[\"name\",\"updated\",\"type\",\"locales\"]}",
+			"type": "string"
+		},
+		{
+			"id": "edacb15d-e507-47ca-b4d3-ca51e999a848",
+			"key": "documentSchema",
+			"value": "{\"type\":\"object\",\"properties\":{\"code\":{\"type\":\"string\"},\"locale\":{\"type\":\"string\"},\"type\":{\"type\":\"string\"},\"text\":{\"type\":\"string\"},\"symbol\":{\"type\":\"string\"}},\"required\":[\"code\",\"locale\",\"type\",\"text\"]}",
+			"type": "string"
+		}
+	]
+}

@@ -1,0 +1,482 @@
+swagger: '2.0'
+info:
+  version: "1.0.0"
+  title: Thesaurus API
+  description: |
+    #### RESTFUL THESAURUS API
+schemes:
+  - http
+host: "thesaurus.maximus.lan"
+basePath: /
+
+parameters:
+  locale.req:
+    name: locale
+    in: query
+    description: "Локаль справочника"
+    type: string
+    required: true
+
+  locale:
+    name: locale
+    in: query
+    description: "Локаль справочника"
+    type: string
+    required: false
+
+  type.req:
+    name: type
+    in: query
+    description: "Категория документов"
+    type: string
+    required: true
+
+  code:
+    name: code
+    in: query
+    description: "Идентфикатор документа"
+    type: string
+    required: false
+
+  code.req:
+    name: code
+    in: query
+    description: "Идентфикатор документа"
+    type: string
+    required: true
+
+  limit:
+    name: limit
+    in: query
+    description: "Лимит"
+    default: 0
+    type: integer
+    required: false
+
+  offset:
+    name: offset
+    in: query
+    description: "Шаг"
+    default: 0
+    type: integer
+    required: false
+
+paths:
+  /status:
+    get:
+      operationId: statusView
+      tags:
+        - Status
+      summary: Статус инстанса
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          $ref: "#/responses/Status_response_200"
+        405:
+          $ref: "#/responses/Base_response_405"
+        500:
+          $ref: "#/responses/Base_response_500"
+
+  /documents:
+    get:
+      operationId: documentCollection
+      parameters:
+        - $ref: "#/parameters/type.req"
+        - $ref: "#/parameters/locale.req"
+        - $ref: "#/parameters/code"
+        - $ref: "#/parameters/limit"
+        - $ref: "#/parameters/offset"
+      tags:
+        - Document
+      summary: Коллекция документов
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          $ref: "#/responses/Document_response_200"
+        404:
+          $ref: "#/responses/Base_response_404"
+        405:
+          $ref: "#/responses/Base_response_405"
+        500:
+          $ref: "#/responses/Base_response_500"
+    post:
+      operationId: documentCreate
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Document_param"
+      tags:
+        - Document
+      summary: Создание документа
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          $ref: "#/responses/Document_response_200"
+        400:
+          $ref: "#/responses/Document_response_400"
+        404:
+          $ref: "#/responses/Base_response_404"
+        405:
+          $ref: "#/responses/Base_response_405"
+        500:
+          $ref: "#/responses/Base_response_500"
+    put:
+      operationId: documentUpdate
+      parameters:
+        - name: body
+          in: body
+          required: true
+          schema:
+            $ref: "#/definitions/Document_param"
+      tags:
+        - Document
+      summary: Редактирование документа
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          $ref: "#/responses/Document_response_200"
+        400:
+          $ref: "#/responses/Document_response_400"
+        404:
+          $ref: "#/responses/Base_response_404"
+        405:
+          $ref: "#/responses/Base_response_405"
+        500:
+          $ref: "#/responses/Base_response_500"
+    delete:
+      operationId: documentDelete
+      parameters:
+        - $ref: "#/parameters/type.req"
+        - $ref: "#/parameters/locale"
+        - $ref: "#/parameters/code"
+      tags:
+        - Document
+      summary:  Удаление документа
+      produces:
+        - application/json
+      consumes:
+        - application/json
+      responses:
+        200:
+          $ref: "#/responses/Base_response_200"
+        404:
+          $ref: "#/responses/Base_response_404"
+        405:
+          $ref: "#/responses/Base_response_405"
+        500:
+          $ref: "#/responses/Base_response_500"
+
+
+responses:
+  Base_response_400:
+    description: "Ошибка валидации"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Error_400_data"
+        - type: object
+          properties:
+            message:
+              type: string
+              example: "Authentication failure"
+            errors:
+              type: object
+              properties:
+                validation:
+                  type: object
+                core:
+                  type: string
+                json:
+                  type: string
+          required:
+            - message
+            - errors
+
+  Base_response_404:
+    description: "Not found"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Error_404_data"
+
+  Base_response_405:
+    description: "Invalid Method"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Error_405_data"
+
+  Base_response_500:
+    description: "Internal server error"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Error_500_data"
+
+  Base_response_200:
+    description: "SUCCESS"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Success_data"
+        - type: object
+          properties:
+            data:
+              type: array
+              items: {}
+          required:
+            - data
+
+  Document_response_400:
+    description: "Validation error"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Document_400_data"
+
+
+  Status_response_200:
+    description: "Объект информации об инстансе"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Success_data"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/definitions/Status_object"
+          required:
+            - data
+
+  Document_response_200:
+    description: "Справочник"
+    schema:
+      allOf:
+        - $ref: "#/definitions/Success_data"
+        - type: object
+          properties:
+            data:
+              type: array
+              items:
+                allOf:
+                  - $ref: "#/definitions/Document_param"
+          required:
+            - data
+
+definitions:
+  Base_data:
+    description: Возвращает статус ответа
+    type: object
+    properties:
+      version:
+        type: string
+        description: "Версия ответа сервиса"
+        example: "1.0.0"
+    required:
+      - version
+
+  Success_data:
+    description: Все хорошо
+    allOf:
+      - $ref: "#/definitions/Base_data"
+      - type: object
+        title: Success_data
+        properties:
+          message:
+            type: string
+            description: "сообщение ответа"
+            example: "SUCCESS"
+          errors:
+            type: array
+            items: {}
+            example: null
+        required:
+          - message
+          - errors
+
+  Error_data:
+    description: Все плохо
+    allOf:
+      - $ref: "#/definitions/Base_data"
+      - type: object
+        title: Error_data
+        properties:
+          data:
+            example: null
+        required:
+          - data
+
+  Error_400_data:
+    allOf:
+      - $ref: "#/definitions/Error_data"
+      - type: object
+        title: Error_Error_400_data
+        properties:
+          message:
+            type: string
+            example: "Validation error"
+          errors:
+            type: array
+            items: {}
+        required:
+          - message
+          - errors
+
+  Document_400_data:
+    description: "Ошибка валидации"
+    allOf:
+      - $ref: "#/definitions/Error_data"
+      - type: object
+        title: Error_400_data
+        properties:
+          message:
+            type: string
+            example: "Authentication failure"
+          errors:
+            type: object
+            properties:
+              validation:
+                type: object
+                properties:
+                  type:
+                    type: string
+                    description: "Тип справочника"
+                    example: "required"
+                    enum:
+                      - required
+                      - string
+                  locale:
+                    type: string
+                    description: "Локаль справочника"
+                    example: "required"
+                    enum:
+                      - required
+                      - string
+                  code:
+                    type: string
+                    description: "Кодификатор записи"
+                    example: "string"
+                    enum:
+                      - required
+                      - string
+                  text:
+                    type: string
+                    description: "Содержание записи"
+                    example: "string"
+                    enum:
+                      - required
+                      - string
+              core:
+                type: string
+              json:
+                type: string
+
+
+  Error_404_data:
+    allOf:
+      - $ref: "#/definitions/Error_data"
+      - type: object
+        title: Error_Error_404_data
+        properties:
+          message:
+            type: string
+            description: "сообщение ответа"
+            example: "Entity not found"
+          errors:
+            type: array
+            items: {}
+            example: null
+        required:
+          - message
+          - errors
+
+  Error_405_data:
+    allOf:
+      - $ref: "#/definitions/Error_data"
+      - type: object
+        title: Error_Error_405_data
+        properties:
+          message:
+            type: string
+            description: "сообщение ответа"
+            example: "Method ${METHOD} not allowed"
+          errors:
+            example: null
+
+  Error_500_data:
+    allOf:
+      - $ref: "#/definitions/Error_data"
+      - type: object
+        title: Error_Error_500_data
+        properties:
+          message:
+            type: string
+            description: "сообщение ответа"
+            example: "Internal server error"
+          errors:
+            example: null
+        required:
+          - message
+          - errors
+
+  Document_param:
+    type: object
+    additionalProperties: true
+    title: Locale_param
+    properties:
+      type:
+        description: "Тип справочника"
+        type: string
+        example: "patient.gender"
+      locale:
+        description: "Локаль справочника ISO 639-2"
+        type: string
+        example: "RUS"
+      code:
+        description: "Идентификатор записи"
+        type: string
+        example: "MALE"
+      text:
+        description: "Содержание записи"
+        type: string
+        example: "M"
+    required:
+      - type
+      - locale
+      - code
+      - text
+
+  Status_object:
+    title: Status_object
+    properties:
+      name:
+        type: string
+        description: "Коллекция справочника"
+        example: "patient.genders"
+      locales:
+        description: "Коллекция доступных локализаций ISO 639-2"
+        type: array
+        example: ["RUS", "ENG", "FRA"]
+        items:
+          type: string
+      type:
+        type: string
+        description: "Тип справочника"
+        example: "STATIC"
+        enum:
+          - "STATIC"
+          - "DYNAMIC"
+      updated:
+        type: "string"
+        description: "ISO8601 Дата обновления спрвочника"
+        example: "2005-08-09T18:31:42+03:30"

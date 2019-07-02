@@ -1,0 +1,39 @@
+version: '3.7'
+
+services:
+    mongodb:
+        image: mongo
+        container_name: thesaurus_mongodb
+        ports:
+            - 27017:27017
+        networks:
+            - thesaurus
+        volumes:
+            - 'mongo:/data/db'
+    thesaurus:
+        build:
+            context: ./
+            dockerfile: Dockerfile.dev
+        container_name: thesaurus_server
+        environment:
+            - THESAURUS_LOGGING_OUTPUT=STDOUT
+            - THESAURUS_LOGGING_FORMAT=TEXT
+            - THESAURUS_LOGGING_LEVEL=INFO
+            - THESAURUS_HTTP_PORT=8585
+            - THESAURUS_DB_PORT=27017
+            - THESAURUS_DB_HOST=thesaurus_mongodb
+            - THESAURUS_DB_DATABASE=documents
+            - THESAURUS_DOCUMENTSPATH=/go/src/repo.nefrosovet.ru/maximus-platform/thesaurus/dictionaries
+        # command: /go/bin/thesaurus --update
+        ports:
+            - 8585:8585
+        networks:
+            - thesaurus
+        tty: true
+        depends_on:
+          - mongodb
+
+networks:
+    thesaurus:
+volumes:
+    mongo:

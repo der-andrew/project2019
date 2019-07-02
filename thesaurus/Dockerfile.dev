@@ -1,0 +1,27 @@
+FROM golang:alpine
+
+# Install git
+RUN apk add --no-cache --update \
+	git
+
+# Set enviroment variable for Go lang
+ENV GOPATH=/go \
+	PATH="/go/bin:$PATH"
+
+# Install dep package manager
+RUN go get -u github.com/golang/dep/cmd/dep
+
+# Copy the local package files to the container's workspace. Add to GOPATH
+ADD . /go/src/repo.nefrosovet.ru/maximus-platform/thesaurus
+
+# Set workdir
+WORKDIR /go/src/repo.nefrosovet.ru/maximus-platform/thesaurus
+
+# Build
+RUN go install repo.nefrosovet.ru/maximus-platform/thesaurus/cmd/thesaurus
+
+# Run the compiled bin by default when the container start.
+CMD /go/bin/thesaurus
+
+# Service listens on port 8585.
+EXPOSE 8585
