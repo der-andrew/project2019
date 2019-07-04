@@ -12,11 +12,11 @@ variables:
 stages:
  - prebuild
  - build
- - pack
- - test
- - push
- - cleanup
- - deploy
+# - pack
+# - test
+# - push
+# - cleanup
+# - deploy
 
 .common: &common
  tags:
