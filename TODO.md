@@ -31,16 +31,20 @@
 - ~~Из приложения выпилить справочники.~~
 - Изучить приложение.
 - Выпилить из приложения лишнее).
-* Swagger
-
+* ~~Swagger.~~
+* ~~Pages.~~
  
 - GCP. Создать отдельный проект `Project2019`.
 - ~~CI/CD GitLab. Создать группу `Project2019-02` и проект в ней `thesaurus`.~~
-- ~~Прикрутить ssh ключи к проекту.~~
+- ~~CI/CD GitLab. В группе `Project2019-02` создать проект `infra`.~~
+- ~~Прикрутить ssh ключи к проектам `thesaurus` `infra` с правами на запись.~~
 ```commandLine
 ssh-keygen -t rsa -C 'for GitLab' -f ~/.ssh/GitLab
 ```
-- Подключить к проекту раннер(ы).
-- IaC. ???
+- Подключить к проектам раннер(ы).
+- IaC.
+* Базовый образ. Packer. Terraform.
+* Боевая машина. Terraform+Packer+Ansible. ~~Molecule (may be for CI/CD testing) **NO!!! It stuff needs pip virtualenv!!! NO!!!**~~.
+
 - Monitoring. ???
 - 

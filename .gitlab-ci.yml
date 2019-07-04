@@ -122,6 +122,7 @@ stages:
 prebuild:
  extends: .build_env
  stage: prebuild
+ when: manual
  variables:
   DEPCACHEDIR: ${CI_PROJECT_DIR}/_dep_cache
  cache:
@@ -142,6 +143,7 @@ prebuild:
 
 build:linux:
  stage: build
+ when: manual
  extends: .build_app
  variables:
   BUILD_OS: linux
@@ -150,6 +152,7 @@ build:linux:
 
 build:windows:
  stage: build
+ when: manual
  extends: .build_app
  variables:
   BUILD_OS: windows
