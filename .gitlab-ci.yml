@@ -41,7 +41,7 @@ stages:
 
 .build_env: &build_env
  <<: *version
- image: repository.diacare-soft.ru/docker/golang:${GO_VERSION}
+ image: golang:${GO_VERSION}
  variables:
   DOCKER_DRIVER: overlay2
  services:
@@ -123,7 +123,6 @@ stages:
 prebuild:
  extends: .build_env
  stage: prebuild
- when: manual
  variables:
   DEPCACHEDIR: ${CI_PROJECT_DIR}/_dep_cache
  cache:
@@ -144,7 +143,6 @@ prebuild:
 
 build:linux:
  stage: build
- when: manual
  extends: .build_app
  variables:
   BUILD_OS: linux
@@ -153,7 +151,6 @@ build:linux:
 
 build:windows:
  stage: build
- when: manual
  extends: .build_app
  variables:
   BUILD_OS: windows
@@ -177,7 +174,7 @@ test:docker:
 #test:doc-syntax:
 # <<: *common
 # image:
-#   name: repository.diacare-soft.ru/docker/goswagger/swagger
+#   name: goswagger/swagger
 #   entrypoint: [""]
 # stage: test
 # dependencies: []
@@ -189,7 +186,7 @@ test:docker:
 #test:postman:
 # stage: test
 # extends: .docker
-# image: repository.diacare-soft.ru/docker/docker-compose
+# image: docker-compose
 # dependencies: []
 # variables:
 #  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
@@ -211,8 +208,8 @@ test:docker:
 # stage: test
 # extends: .build_env
 # services:
-#  - name: repository.diacare-soft.ru/docker/docker:dind
-#  - name: repository.diacare-soft.ru/docker/mongo:4.0
+#  - name: docker:dind
+#  - name: mongo:4.0
 #    alias: mongo
 # dependencies:
 #  - prebuild
@@ -242,7 +239,7 @@ test:docker:
 
 #pages:
 # <<: *common
-# image: repository.diacare-soft.ru/docker/swagger-ui
+# image: swagger-ui
 # stage: deploy
 # dependencies: []
 # cache:
