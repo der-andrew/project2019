@@ -1,7 +1,8 @@
 variables:
   GO_VERSION: 1.12.6
   ARTIFACT_PROJECT_DIR: artifacts
-  GITLAB_HOST: repo.nefrosovet.ru
+#  GITLAB_HOST: repo.nefrosovet.ru
+  GITLAB_HOST: app-host
   ART_SUFFIX: maximus
   ART_NAMESPACE: platform
   APP_DIR: cmd/thesaurus
@@ -12,15 +13,15 @@ variables:
 stages:
  - prebuild
  - build
-# - pack
-# - test
+ - pack
+ - test
 # - push
 # - cleanup
 # - deploy
 
 .common: &common
  tags:
-  - k8s
+  - docker
 
 .version: &version
  <<: *common
@@ -44,13 +45,13 @@ stages:
  variables:
   DOCKER_DRIVER: overlay2
  services:
-  - repository.diacare-soft.ru/docker/docker:dind
- tags:
-  - k8s
+  - docker:dind
+# tags:
+#  - k8s
 
 .docker:
  extends: .build_env
- image: repository.diacare-soft.ru/docker/docker:stable
+ image: docker:stable
  cache:
   policy: pull
 
@@ -69,25 +70,25 @@ stages:
   - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
   - docker run --rm -i ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} --version
 
-.docker:push:id:
- extends: .docker
- dependencies: []
- script:
-  - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
-  - echo ${ART_PASSWORD} | docker login -u ${ART_USERNAME} --password-stdin ${ART_REGISTRY}
-  - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
-  - docker tag ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_PIPELINE_ID}
-  - docker push ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_PIPELINE_ID}
+#.docker:push:id:
+# extends: .docker
+# dependencies: []
+# script:
+#  - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+#  - echo ${ART_PASSWORD} | docker login -u ${ART_USERNAME} --password-stdin ${ART_REGISTRY}
+#  - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
+#  - docker tag ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_PIPELINE_ID}
+#  - docker push ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_PIPELINE_ID}
 
-.docker:push:version:
- extends: .docker
- dependencies: []
- script:
-  - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
-  - echo ${ART_PASSWORD} | docker login -u ${ART_USERNAME} --password-stdin ${ART_REGISTRY}
-  - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
-  - docker tag ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_REGISTRY_VER}
-  - docker push ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_REGISTRY_VER}
+#.docker:push:version:
+# extends: .docker
+# dependencies: []
+# script:
+#  - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+#  - echo ${ART_PASSWORD} | docker login -u ${ART_USERNAME} --password-stdin ${ART_REGISTRY}
+#  - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
+#  - docker tag ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_REGISTRY_VER}
+#  - docker push ${ART_REGISTRY}/${ART_PREFIX}-docker-${ART_SUFFIX}/${ART_NAMESPACE}/${IMAGE_NAME}:${CI_REGISTRY_VER}
 
 .build_app: &build_app
  <<: *build_env
@@ -106,18 +107,18 @@ stages:
    - ${CSV_PATH}
   expire_in: 1 week
 
-.deploy_bin: &deploy_bin
- <<: *build_env
- image: docker.bintray.io/jfrog/jfrog-cli-go
- script:
-  - jfrog rt config
-     --url=https://${ART_REGISTRY}/artifactory
-     --user=${ART_USERNAME}
-     --apikey=${ART_PASSWORD}
-     rt-${CI_PIPELINE_ID}
-  - cd ${ARTIFACT_PROJECT_DIR}
-  - tar -czf ${CI_PROJECT_NAME}-${CI_REGISTRY_VER}-${APP_OS}.tar.gz ${BIN_NAME}
-  - jfrog rt upload ${CI_PROJECT_NAME}-${CI_REGISTRY_VER}-${APP_OS}.tar.gz ${ART_PREFIX}-bin-${ART_SUFFIX}/${ART_NAMESPACE}/${CI_PROJECT_NAME}-${CI_REGISTRY_VER}-${APP_OS}.tar.gz
+#.deploy_bin: &deploy_bin
+# <<: *build_env
+# image: docker.bintray.io/jfrog/jfrog-cli-go
+# script:
+#  - jfrog rt config
+#     --url=https://${ART_REGISTRY}/artifactory
+#     --user=${ART_USERNAME}
+#     --apikey=${ART_PASSWORD}
+#     rt-${CI_PIPELINE_ID}
+#  - cd ${ARTIFACT_PROJECT_DIR}
+#  - tar -czf ${CI_PROJECT_NAME}-${CI_REGISTRY_VER}-${APP_OS}.tar.gz ${BIN_NAME}
+#  - jfrog rt upload ${CI_PROJECT_NAME}-${CI_REGISTRY_VER}-${APP_OS}.tar.gz ${ART_PREFIX}-bin-${ART_SUFFIX}/${ART_NAMESPACE}/${CI_PROJECT_NAME}-${CI_REGISTRY_VER}-${APP_OS}.tar.gz
 
 prebuild:
  extends: .build_env
@@ -225,19 +226,19 @@ test:docker:
 #  - cd ${CI_PROJECT_NAME}
 #  - go test ./...
 
-push:docker:id:
- stage: push
- extends: .docker:push:id
- variables:
-  GIT_STRATEGY: none
- only:
-  - branches
+#push:docker:id:
+# stage: push
+# extends: .docker:push:id
+# variables:
+#  GIT_STRATEGY: none
+# only:
+#  - branches
 
-push:docker:version:
- stage: push
- extends: .docker:push:version
- variables:
-  GIT_STRATEGY: none
+#push:docker:version:
+# stage: push
+# extends: .docker:push:version
+# variables:
+#  GIT_STRATEGY: none
 
 #pages:
 # <<: *common
@@ -257,33 +258,32 @@ push:docker:version:
 # only:
 #  - develop
 
-deploy:bin:linux:
- stage: deploy
- extends: .deploy_bin
- variables:
-  APP_OS: linux64
-  BIN_NAME: ${APP_BIN}
- dependencies:
-  - build:linux
+#deploy:bin:linux:
+# stage: deploy
+# extends: .deploy_bin
+# variables:
+#  APP_OS: linux64
+#  BIN_NAME: ${APP_BIN}
+# dependencies:
+#  - build:linux
 
-deploy:bin:windows:
- stage: deploy
- extends: .deploy_bin
- variables:
-  APP_OS: win64
-  BIN_NAME: ${APP_BIN}.exe
- dependencies:
-  - build:windows
+#deploy:bin:windows:
+# stage: deploy
+# extends: .deploy_bin
+# variables:
+#  APP_OS: win64
+#  BIN_NAME: ${APP_BIN}.exe
+# dependencies:
+#  - build:windows
 
-clean:temp_docker_image:
- stage: cleanup
- image: alpine
- dependencies: []
- cache:
-  policy: pull
- before_script:
-  - apk add --update --no-cache curl jq bash
- script:
-  - for repoID in $(curl -s -f https://${GITLAB_HOST}/api/v4/projects/${CI_PROJECT_ID}/registry/repositories?private_token=${MAINTAINCE_TOKEN} | jq -r .[].id); do curl -s -f -X DELETE https://${GITLAB_HOST}/api/v4/projects/${CI_PROJECT_ID}/registry/repositories/${repoID}/tags/${CI_PIPELINE_ID}?private_token=${MAINTAINCE_TOKEN}; done
- tags:
-  - k8s
+#clean:temp_docker_image:
+# stage: cleanup
+# image: alpine
+# dependencies: []
+# cache:
+#  policy: pull
+# before_script:
+#  - apk add --update --no-cache curl jq bash
+# script:
+#  - for repoID in $(curl -s -f https://${GITLAB_HOST}/api/v4/projects/${CI_PROJECT_ID}/registry/repositories?private_token=${MAINTAINCE_TOKEN} | jq -r .[].id); do curl -s -f -X DELETE https://${GITLAB_HOST}/api/v4/projects/${CI_PROJECT_ID}/registry/repositories/${repoID}/tags/${CI_PIPELINE_ID}?private_token=${MAINTAINCE_TOKEN}; done
+# <<: *common
