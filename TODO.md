@@ -30,11 +30,13 @@
 - ~~Взять своё приложение, т.к. на ОТУС-ово много ругани в тредах(((. http://wiki.diacare-soft.ru/bin/view/%D0%9F%D1%80%D0%BE%D0%B5%D0%BA%D1%82%D1%8B/Maximus%3A%20next/Thesaurus/~~
 - ~~Из приложения выпилить справочники.~~
 - Изучить приложение.
-- Выпилить из приложения лишнее).
+-- Выпилить из приложения лишнее).
 * ~~Swagger.~~
 * ~~Pages.~~
+* ~~test:postman~~
+* ~~test:go_test~~
  
-- GCP. Создать отдельный проект `Project2019`.
+- GCP. ~~Работы ведём в проекте `docker-239319`~~.
 - ~~CI/CD GitLab. Создать группу `Project2019-02` и проект в ней `thesaurus`.~~
 - ~~CI/CD GitLab. В группе `Project2019-02` создать проект `infra`.~~
 - ~~Прикрутить ssh ключи к проектам `thesaurus` `infra` с правами на запись.~~
@@ -43,8 +45,10 @@ ssh-keygen -t rsa -C 'for GitLab' -f ~/.ssh/GitLab
 ```
 - Подключить к проектам раннер(ы).
 - IaC.
-* Базовый образ. Packer. Terraform.
-* Боевая машина. Terraform+Packer+Ansible. ~~Molecule (may be for CI/CD testing) **NO!!! It stuff needs pip virtualenv!!! NO!!!**~~.
+-- ~~Базовый образ. Packer. Family: `common-base`.~~
+-- Боевые машины. Terraform+Packer+Ansible. ~~Molecule (may be for CI/CD testing) **NO!!! It stuff needs pip virtualenv!!! NO!!!**~~.
+--- app-host. Содержит приложение и базу данных.
+--- mon-host. Система мониторинга.
 
 - Monitoring. ???
 - 

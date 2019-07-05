@@ -185,45 +185,45 @@ test:docker:
 # script:
 #  -  swagger validate docs/swagger.yaml
 
-test:postman:
- stage: test
- extends: .docker
- image: repository.diacare-soft.ru/docker/docker-compose
- dependencies: []
- variables:
-  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
- before_script:
-   - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
-   - echo ${ART_PASSWORD} | docker login -u ${ART_USERNAME} --password-stdin ${ART_REGISTRY}
- script:
-   - cd tests/postman
-   - docker-compose pull app
-   - docker-compose up -d app
-   - sleep 5
-   - docker-compose build --pull postman
-   - docker-compose up --exit-code-from postman --abort-on-container-exit postman
- after_script:
-   - cd tests/postman
-   - docker-compose down -v
+#test:postman:
+# stage: test
+# extends: .docker
+# image: repository.diacare-soft.ru/docker/docker-compose
+# dependencies: []
+# variables:
+#  COMPOSE_PROJECT_NAME: ${CI_JOB_ID}
+# before_script:
+#   - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
+#   - echo ${ART_PASSWORD} | docker login -u ${ART_USERNAME} --password-stdin ${ART_REGISTRY}
+# script:
+#   - cd tests/postman
+#   - docker-compose pull app
+#   - docker-compose up -d app
+#   - sleep 5
+#   - docker-compose build --pull postman
+#   - docker-compose up --exit-code-from postman --abort-on-container-exit postman
+# after_script:
+#   - cd tests/postman
+#   - docker-compose down -v
 
-test:go_test:
- stage: test
- extends: .build_env
- services:
-  - name: repository.diacare-soft.ru/docker/docker:dind
-  - name: repository.diacare-soft.ru/docker/mongo:4.0
-    alias: mongo
- dependencies:
-  - prebuild
- variables:
-  THESAURUS_DB_HOST: mongo
-  THESAURUS_DB_DATABASE: documents
- script:
-  - mkdir -p ${GOPATH}/src/${GITLAB_HOST}/${CI_PROJECT_NAMESPACE}
-  - cd ${GOPATH}/src/${GITLAB_HOST}/${CI_PROJECT_NAMESPACE}
-  - ln -s ${CI_PROJECT_DIR}
-  - cd ${CI_PROJECT_NAME}
-  - go test ./...
+#test:go_test:
+# stage: test
+# extends: .build_env
+# services:
+#  - name: repository.diacare-soft.ru/docker/docker:dind
+#  - name: repository.diacare-soft.ru/docker/mongo:4.0
+#    alias: mongo
+# dependencies:
+#  - prebuild
+# variables:
+#  THESAURUS_DB_HOST: mongo
+#  THESAURUS_DB_DATABASE: documents
+# script:
+#  - mkdir -p ${GOPATH}/src/${GITLAB_HOST}/${CI_PROJECT_NAMESPACE}
+#  - cd ${GOPATH}/src/${GITLAB_HOST}/${CI_PROJECT_NAMESPACE}
+#  - ln -s ${CI_PROJECT_DIR}
+#  - cd ${CI_PROJECT_NAME}
+#  - go test ./...
 
 push:docker:id:
  stage: push
