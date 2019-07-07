@@ -69,8 +69,10 @@ stages:
  dependencies: []
  script:
   - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
-  - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
-  - docker run --rm -i ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} --version
+  - docker pull ${CI_REGISTRY_IMAGE}:${CI_REGISTRY_VER}
+  - docker run --rm -i ${CI_REGISTRY_IMAGE}:${CI_REGISTRY_VER} --version
+#  - docker run --rm -i ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} --version
+#  - docker pull ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
 
 #.docker:push:id:
 # extends: .docker
