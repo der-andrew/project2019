@@ -12,11 +12,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"gitlab-host/maximus-platform/thesaurus/api/restapi"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations"
-	"gitlab-host/maximus-platform/thesaurus/csv"
-	"gitlab-host/maximus-platform/thesaurus/service"
-	"gitlab-host/maximus-platform/thesaurus/storage/mongo"
+	"gitlab.com/project2019-02/thesaurus/api/restapi"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations"
+	"gitlab.com/project2019-02/thesaurus/csv"
+	"gitlab.com/project2019-02/thesaurus/service"
+	"gitlab.com/project2019-02/thesaurus/storage/mongo"
 )
 
 var (

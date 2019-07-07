@@ -6,7 +6,7 @@ import (
 	"github.com/mongodb/mongo-go-driver/mongo"
 	"github.com/sirupsen/logrus"
 
-	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/storage"
 )
 
 type Storage struct {

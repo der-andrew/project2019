@@ -6,8 +6,8 @@ import (
 	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/sirupsen/logrus"
 
-	"gitlab-host/maximus-platform/thesaurus/models"
-	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/models"
+	"gitlab.com/project2019-02/thesaurus/storage"
 )
 
 func (s *Storage) StoreOrUpdateMetadata(collectionName string, in *models.UpdMetadata) (models.Metadata, error) {

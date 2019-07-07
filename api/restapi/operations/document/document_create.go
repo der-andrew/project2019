@@ -15,7 +15,7 @@ import (
 	swag "github.com/go-openapi/swag"
 	validate "github.com/go-openapi/validate"
 
-	models "gitlab-host/maximus-platform/thesaurus/api/models"
+	models "gitlab.com/project2019-02/thesaurus/api/models"
 )
 
 // DocumentCreateHandlerFunc turns a function with the right signature into a document create handler

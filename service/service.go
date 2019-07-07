@@ -1,6 +1,6 @@
 package service
 
-import "gitlab-host/maximus-platform/thesaurus/storage"
+import "gitlab.com/project2019-02/thesaurus/storage"
 
 var Instance *Service
 

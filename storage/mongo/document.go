@@ -7,8 +7,8 @@ import (
 	"github.com/mongodb/mongo-go-driver/mongo/options"
 	"github.com/sirupsen/logrus"
 
-	"gitlab-host/maximus-platform/thesaurus/models"
-	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/models"
+	"gitlab.com/project2019-02/thesaurus/storage"
 )
 
 func (s *Storage) StoreDocument(in bson.M) (models.Document, error) {

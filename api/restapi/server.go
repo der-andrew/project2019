@@ -25,7 +25,7 @@ import (
 	flags "github.com/jessevdk/go-flags"
 	"golang.org/x/net/netutil"
 
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations"
 )
 
 const (

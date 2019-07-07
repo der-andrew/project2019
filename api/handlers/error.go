@@ -11,8 +11,8 @@ import (
 	apiErrors "github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 
-	"gitlab-host/maximus-platform/thesaurus/api/models"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/document"
+	"gitlab.com/project2019-02/thesaurus/api/models"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/document"
 )
 
 var (

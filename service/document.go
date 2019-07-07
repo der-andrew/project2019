@@ -4,11 +4,11 @@ import (
 	"errors"
 	"time"
 
-	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/storage"
 
 	"github.com/mongodb/mongo-go-driver/bson"
 
-	"gitlab-host/maximus-platform/thesaurus/models"
+	"gitlab.com/project2019-02/thesaurus/models"
 )
 
 var ErrAccessDenied = errors.New("access denied")

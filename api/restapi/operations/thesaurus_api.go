@@ -19,8 +19,8 @@ import (
 	strfmt "github.com/go-openapi/strfmt"
 	"github.com/go-openapi/swag"
 
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/document"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/status"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/document"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/status"
 )
 
 // NewThesaurusAPI creates a new Thesaurus instance

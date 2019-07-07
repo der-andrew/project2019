@@ -5,9 +5,9 @@ import (
 
 	"github.com/spf13/viper"
 
-	"gitlab-host/maximus-platform/thesaurus/service"
-	"gitlab-host/maximus-platform/thesaurus/storage"
-	"gitlab-host/maximus-platform/thesaurus/storage/mongo"
+	"gitlab.com/project2019-02/thesaurus/service"
+	"gitlab.com/project2019-02/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/storage/mongo"
 )
 
 var Storage storage.Storage

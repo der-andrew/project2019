@@ -6,11 +6,11 @@ import (
 	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/stretchr/testify/suite"
 
-	"gitlab-host/maximus-platform/thesaurus/api/handlers"
-	"gitlab-host/maximus-platform/thesaurus/api/models"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/status"
-	dbModels "gitlab-host/maximus-platform/thesaurus/models"
-	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/api/handlers"
+	"gitlab.com/project2019-02/thesaurus/api/models"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/status"
+	dbModels "gitlab.com/project2019-02/thesaurus/models"
+	"gitlab.com/project2019-02/thesaurus/storage"
 )
 
 type StatusSuite struct {

@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/suite"
 
-	"gitlab-host/maximus-platform/thesaurus/models"
-	"gitlab-host/maximus-platform/thesaurus/service"
-	"gitlab-host/maximus-platform/thesaurus/storage"
-	"gitlab-host/maximus-platform/thesaurus/tests/integration"
+	"gitlab.com/project2019-02/thesaurus/models"
+	"gitlab.com/project2019-02/thesaurus/service"
+	"gitlab.com/project2019-02/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/tests/integration"
 )
 
 var Service *service.Service

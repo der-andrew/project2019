@@ -9,11 +9,11 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/sirupsen/logrus"
 
-	"gitlab-host/maximus-platform/thesaurus/api/handlers"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/document"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/status"
-	"gitlab-host/maximus-platform/thesaurus/service"
+	"gitlab.com/project2019-02/thesaurus/api/handlers"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/document"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/status"
+	"gitlab.com/project2019-02/thesaurus/service"
 )
 
 //go:generate swagger generate server --target ../../api --name Thesaurus --spec ../../docs/swagger.yaml --exclude-main

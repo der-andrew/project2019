@@ -8,10 +8,10 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/assert"
 
-	"gitlab-host/maximus-platform/thesaurus/api/handlers"
-	"gitlab-host/maximus-platform/thesaurus/api/models"
-	"gitlab-host/maximus-platform/thesaurus/service"
-	"gitlab-host/maximus-platform/thesaurus/tests/integration"
+	"gitlab.com/project2019-02/thesaurus/api/handlers"
+	"gitlab.com/project2019-02/thesaurus/api/models"
+	"gitlab.com/project2019-02/thesaurus/service"
+	"gitlab.com/project2019-02/thesaurus/tests/integration"
 )
 
 var Service *service.Service

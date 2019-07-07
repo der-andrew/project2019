@@ -7,11 +7,11 @@ import (
 	"github.com/mongodb/mongo-go-driver/x/bsonx"
 	"github.com/sirupsen/logrus"
 
-	"gitlab-host/maximus-platform/thesaurus/api/models"
-	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/document"
-	dbModels "gitlab-host/maximus-platform/thesaurus/models"
-	"gitlab-host/maximus-platform/thesaurus/service"
-	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab.com/project2019-02/thesaurus/api/models"
+	"gitlab.com/project2019-02/thesaurus/api/restapi/operations/document"
+	dbModels "gitlab.com/project2019-02/thesaurus/models"
+	"gitlab.com/project2019-02/thesaurus/service"
+	"gitlab.com/project2019-02/thesaurus/storage"
 )
 
 func DocumentCreate(params document.DocumentCreateParams) middleware.Responder {

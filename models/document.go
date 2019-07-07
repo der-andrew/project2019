@@ -3,7 +3,7 @@ package models
 import (
 	"github.com/mongodb/mongo-go-driver/bson"
 
-	"gitlab-host/maximus-platform/thesaurus/api/models"
+	"gitlab.com/project2019-02/thesaurus/api/models"
 )
 
 type Document struct {
