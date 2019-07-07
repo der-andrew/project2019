@@ -9,10 +9,10 @@ import (
 	"github.com/mongodb/mongo-go-driver/mongo/options"
 	log "github.com/sirupsen/logrus"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/models"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/restapi/operations/status"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
-	mongoStorage "repo.nefrosovet.ru/maximus-platform/thesaurus/storage/mongo"
+	"gitlab-host/maximus-platform/thesaurus/api/models"
+	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/status"
+	"gitlab-host/maximus-platform/thesaurus/storage"
+	mongoStorage "gitlab-host/maximus-platform/thesaurus/storage/mongo"
 )
 
 func StatusView(_ status.StatusViewParams) middleware.Responder {

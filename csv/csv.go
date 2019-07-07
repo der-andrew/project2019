@@ -7,13 +7,13 @@ import (
 	"path/filepath"
 	"strings"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
+	"gitlab-host/maximus-platform/thesaurus/storage"
 
 	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/mongodb/mongo-go-driver/mongo"
 	log "github.com/sirupsen/logrus"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/service"
+	"gitlab-host/maximus-platform/thesaurus/service"
 )
 
 //Check whether the directory can be used

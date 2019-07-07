@@ -9,8 +9,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/suite"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/tests/integration"
+	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab-host/maximus-platform/thesaurus/tests/integration"
 )
 
 var Storage storage.Storage

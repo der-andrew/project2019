@@ -11,8 +11,8 @@ import (
 	apiErrors "github.com/go-openapi/errors"
 	"github.com/go-openapi/runtime"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/models"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/restapi/operations/document"
+	"gitlab-host/maximus-platform/thesaurus/api/models"
+	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/document"
 )
 
 var (

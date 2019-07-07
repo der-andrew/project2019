@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/mongodb/mongo-go-driver/bson"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/models"
+	"gitlab-host/maximus-platform/thesaurus/models"
 )
 
 type Storage interface {

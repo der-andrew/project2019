@@ -6,8 +6,8 @@ import (
 
 	"github.com/stretchr/testify/suite"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/models"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
+	"gitlab-host/maximus-platform/thesaurus/models"
+	"gitlab-host/maximus-platform/thesaurus/storage"
 )
 
 type MetadataSuite struct {

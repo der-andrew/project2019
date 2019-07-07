@@ -6,11 +6,11 @@ import (
 	"github.com/mongodb/mongo-go-driver/bson"
 	"github.com/stretchr/testify/suite"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/handlers"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/models"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/api/restapi/operations/status"
-	dbModels "repo.nefrosovet.ru/maximus-platform/thesaurus/models"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
+	"gitlab-host/maximus-platform/thesaurus/api/handlers"
+	"gitlab-host/maximus-platform/thesaurus/api/models"
+	"gitlab-host/maximus-platform/thesaurus/api/restapi/operations/status"
+	dbModels "gitlab-host/maximus-platform/thesaurus/models"
+	"gitlab-host/maximus-platform/thesaurus/storage"
 )
 
 type StatusSuite struct {

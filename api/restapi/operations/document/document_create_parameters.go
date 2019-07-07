@@ -13,7 +13,7 @@ import (
 	"github.com/go-openapi/runtime"
 	"github.com/go-openapi/runtime/middleware"
 
-	models "repo.nefrosovet.ru/maximus-platform/thesaurus/api/models"
+	models "gitlab-host/maximus-platform/thesaurus/api/models"
 )
 
 // NewDocumentCreateParams creates a new DocumentCreateParams object

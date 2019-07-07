@@ -9,11 +9,11 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/stretchr/testify/suite"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/csv"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/service"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage/mongo"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/tests/integration"
+	"gitlab-host/maximus-platform/thesaurus/csv"
+	"gitlab-host/maximus-platform/thesaurus/service"
+	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab-host/maximus-platform/thesaurus/storage/mongo"
+	"gitlab-host/maximus-platform/thesaurus/tests/integration"
 )
 
 var Service *service.Service

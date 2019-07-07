@@ -5,9 +5,9 @@ import (
 
 	"github.com/spf13/viper"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/service"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/storage/mongo"
+	"gitlab-host/maximus-platform/thesaurus/service"
+	"gitlab-host/maximus-platform/thesaurus/storage"
+	"gitlab-host/maximus-platform/thesaurus/storage/mongo"
 )
 
 var Storage storage.Storage

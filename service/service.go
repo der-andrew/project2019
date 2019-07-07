@@ -1,6 +1,6 @@
 package service
 
-import "repo.nefrosovet.ru/maximus-platform/thesaurus/storage"
+import "gitlab-host/maximus-platform/thesaurus/storage"
 
 var Instance *Service
 

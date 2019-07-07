@@ -2,7 +2,7 @@ variables:
   GO_VERSION: 1.12.6
   ARTIFACT_PROJECT_DIR: artifacts
 #  GITLAB_HOST: repo.nefrosovet.ru
-  GITLAB_HOST: app-host
+  GITLAB_HOST: gitlab-host
   ART_SUFFIX: maximus
   ART_NAMESPACE: platform
   APP_DIR: cmd/thesaurus

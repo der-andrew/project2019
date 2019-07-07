@@ -3,7 +3,7 @@ package handlers
 import (
 	"fmt"
 
-	"repo.nefrosovet.ru/maximus-platform/thesaurus/service"
+	"gitlab-host/maximus-platform/thesaurus/service"
 )
 
 // PayloadSuccessMessage used in 200 answers

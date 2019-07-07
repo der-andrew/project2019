@@ -14,7 +14,7 @@ import (
 	swag "github.com/go-openapi/swag"
 	validate "github.com/go-openapi/validate"
 
-	models "repo.nefrosovet.ru/maximus-platform/thesaurus/api/models"
+	models "gitlab-host/maximus-platform/thesaurus/api/models"
 )
 
 // DocumentDeleteHandlerFunc turns a function with the right signature into a document delete handler
