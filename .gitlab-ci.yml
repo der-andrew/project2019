@@ -60,7 +60,8 @@ stages:
  script:
   - echo ${CI_BUILD_TOKEN} | docker login -u ${CI_REGISTRY_USER} --password-stdin ${CI_REGISTRY}
   - docker build --force-rm --pull --build-arg _path=${ARTIFACT_PROJECT_DIR} --build-arg APP=${BIN_NAME} --build-arg CSV=${CSV_PATH} --label image.version=${APP_VER} -f spec/Dockerfile -t ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID} .
-  - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
+  - docker push ${CI_REGISTRY_IMAGE}:latest
+#  - docker push ${CI_REGISTRY_IMAGE}:${CI_PIPELINE_ID}
 
 .docker:check:
  extends: .docker
