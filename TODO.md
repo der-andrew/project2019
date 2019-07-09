@@ -1,14 +1,14 @@
 # TODO
 
 ## Требования
-1. Автоматизированные процессы создания и управления платформой
+1. ~~Автоматизированные процессы создания и управления платформой~~
 • ~~Ресурсы GCP~~
 • ~~Инфраструктура для CI/CD~~
-• Инфраструктура для сбора обратной связи
-2. Использование практики IaC (Infrastructure as Code) для управления конфигурацией и инфраструктурой
+• ~~Инфраструктура для сбора обратной связи~~
+2. ~~Использование практики IaC (Infrastructure as Code) для управления конфигурацией и инфраструктурой~~
 3. ~~Настроен процесс CI/CD~~
 4. ~~Все, что имеет отношение к проекту хранится в Git~~
-5. Настроен процесс сбора обратной связи
+5. ~~Настроен процесс сбора обратной связи~~
 • ~~Мониторинг (сбор метрик, алертинг, визуализация)~~
 • Логирование (опционально)
 • Трейсинг (опционально)
@@ -60,12 +60,12 @@ ssh-keygen -t rsa -C 'for GitLab' -f ~/.ssh/GitLab
 2. ~~node-exporter~~
 3. ~~mongodb_exporter~~
 
-* mon-host:
+* ~~mon-host:~~
 1. ~~prometheus~~
 2. ~~grafana~~
-dashboards:
-cAdvisor+Node-Exporter - https://grafana.com/dashboards/893, https://grafana.com/dashboards/395
-MongoDB - https://grafana.com/dashboards/5270
+~~dashboards:~~
+~~cAdvisor+Node-Exporter~~ - https://grafana.com/dashboards/893, https://grafana.com/dashboards/395
+~~MongoDB~~ - https://grafana.com/dashboards/5270
 3. ~~alertmanager~~
 4. ~~cadvisor~~
 5. ~~node-exporter~~
