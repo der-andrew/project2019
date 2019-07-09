@@ -89,9 +89,10 @@ docker-compose up -d
 
 ## Testing
 
-Firstly up mongo:
-```commandLine
-$ docker-compose up -d mongodb
+- После запуска инфраструктуры, можно зайти по ссылке:
+curl -sSLk -XGET 'http://<Instanse_IP>:8585/documents?locale=RUS&type=patient.genders' | jq .
+```
+Иногда по непонятным причинам коннект к приложению зависает. При этом контейнеры запущены. Помогает ручной перезапуск виртуалки.
 ```
 
 ### By `go test`
